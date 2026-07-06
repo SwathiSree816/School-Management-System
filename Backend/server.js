@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const teacherRoutes = require("./routes/teacherRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
+const userRoutes = require("./routes/userRoutes")
 
 // Load env vars
 dotenv.config();
@@ -20,6 +21,9 @@ app.use(express.json());
 // Routes
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/attendance", attendanceRoutes);
+
+//user routes
+app.use("api/user",userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
