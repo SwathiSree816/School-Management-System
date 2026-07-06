@@ -1,122 +1,127 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import TeacherDashboard from "./Components/TeacherDashboard";
+import AddTeacher from "./Components/AddTeacher";
+import MarkAttendance from "./Components/MarkAttendance";
+import ViewAttendance from "./Components/ViewAttendance";
+import TeacherProfile from "./Components/TeacherProfile";
+import Timetable from "./Components/Timetable";
+
+const getInitials = (name = "") =>
+  name.trim().split(/\s+/).slice(0, 2).map(w => w[0]?.toUpperCase()).join("");
+
+const loadSidebarProfile = () => {
+  try {
+    const s = localStorage.getItem("teacherProfile");
+    return s ? JSON.parse(s) : { name: "Parinita Piplewar", subject: "Computer Science" };
+  } catch {
+    return { name: "Parinita Piplewar", subject: "Computer Science" };
+  }
+};
+
+const NAV_ITEMS = [
+  { to: "/", icon: "dashboard", label: "Dashboard", end: true },
+  { to: "/add-teacher", icon: "person_add", label: "Add Teacher" },
+  { to: "/mark-attendance", icon: "how_to_reg", label: "Mark Attendance" },
+  { to: "/view-attendance", icon: "menu_book", label: "View Attendance" },
+  { to: "/timetable", icon: "calendar_month", label: "Timetable" },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [sidebarProfile, setSidebarProfile] = useState(loadSidebarProfile);
 
+  useEffect(() => {
+    const handler = (e) => setSidebarProfile(e.detail);
+    window.addEventListener("profileUpdated", handler);
+    return () => window.removeEventListener("profileUpdated", handler);
+  }, []);
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <Router>
+      <div style={{ display: "flex", minHeight: "100vh" }}>
 
-      <div className="ticks"></div>
+        {/* Sidebar */}
+        <nav style={{
+          width: "256px", minWidth: "256px", position: "fixed", left: 0, top: 0, bottom: 0,
+          background: "rgba(42, 20, 30, 0.78)", backdropFilter: "blur(22px)",
+          WebkitBackdropFilter: "blur(22px)", borderRight: "1px solid rgba(255,255,255,0.08)",
+          display: "flex", flexDirection: "column", padding: "32px 18px", zIndex: 50
+        }}>
+          {/* Brand */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "44px" }}>
+            <div style={{
+              width: "44px", height: "44px", borderRadius: "14px",
+              background: "linear-gradient(135deg, #7c3aed, #ec4899)",
+              display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              boxShadow: "0 4px 14px rgba(124,58,237,0.4)"
+            }}>
+              <span className="material-symbols-outlined" style={{ color: "#fff", fontSize: "22px", fontVariationSettings: "'FILL' 1" }}>school</span>
+            </div>
+            <div>
+              <div style={{ color: "#fff", fontFamily: "Outfit, sans-serif", fontWeight: 700, fontSize: "15px", lineHeight: 1.2 }}>Teacher Portal</div>
+              <div style={{ color: "rgba(255,200,210,0.55)", fontSize: "11px", fontFamily: "Inter, sans-serif", marginTop: "2px" }}>Management System</div>
+            </div>
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
+          {/* Nav section label */}
+          <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(255,180,195,0.4)", fontFamily: "Inter, sans-serif", textTransform: "uppercase", marginBottom: "10px", paddingLeft: "6px" }}>Navigation</p>
+
+          {/* Nav Items */}
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, flex: 1, display: "flex", flexDirection: "column", gap: "4px" }}>
+            {NAV_ITEMS.map(({ to, icon, label, end }) => (
+              <li key={to}>
+                <NavLink to={to} end={end} style={({ isActive }) => ({
+                  display: "flex", alignItems: "center", gap: "13px",
+                  padding: "11px 14px", borderRadius: "13px", textDecoration: "none",
+                  fontFamily: "Inter, sans-serif", fontSize: "13px", fontWeight: 600,
+                  letterSpacing: "0.02em", transition: "all 0.2s ease",
+                  background: isActive ? "linear-gradient(135deg, rgba(124,58,237,0.28), rgba(236,72,153,0.15))" : "transparent",
+                  color: isActive ? "#f3d8e8" : "rgba(255,200,215,0.5)",
+                  borderLeft: isActive ? "3px solid #ec4899" : "3px solid transparent",
+                })}>
+                  <span className="material-symbols-outlined" style={{ fontSize: "19px", flexShrink: 0 }}>{icon}</span>
+                  {label}
+                </NavLink>
+              </li>
+            ))}
           </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+          {/* Divider */}
+          <div style={{ borderTop: "1px solid rgba(255,200,210,0.1)", marginBottom: "12px" }} />
+
+          {/* Profile Footer */}
+          <NavLink to="/teacher-profile" style={({ isActive }) => ({
+            display: "flex", alignItems: "center", gap: "12px", padding: "11px 14px",
+            borderRadius: "13px", textDecoration: "none", transition: "all 0.2s ease",
+            background: isActive ? "rgba(236,72,153,0.15)" : "rgba(255,255,255,0.04)",
+            border: isActive ? "1px solid rgba(236,72,153,0.25)" : "1px solid transparent",
+          })}>
+            <div style={{ width: "34px", height: "34px", borderRadius: "50%",
+              background: "linear-gradient(135deg, #7c3aed, #ec4899)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: "13px", fontWeight: 700, color: "#fff", fontFamily: "Outfit, sans-serif", flexShrink: 0
+            }}>{getInitials(sidebarProfile.name)}</div>
+            <div>
+              <div style={{ color: "rgba(255,230,235,0.9)", fontFamily: "Inter, sans-serif", fontSize: "13px", fontWeight: 600 }}>{sidebarProfile.name}</div>
+              <div style={{ color: "rgba(255,180,195,0.45)", fontFamily: "Inter, sans-serif", fontSize: "11px" }}>{sidebarProfile.subject}</div>
+            </div>
+            <span className="material-symbols-outlined" style={{ fontSize: "16px", color: "rgba(255,180,195,0.35)", marginLeft: "auto" }}>chevron_right</span>
+          </NavLink>
+        </nav>
+
+        {/* Main Content */}
+        <main style={{ flex: 1, marginLeft: "256px", padding: "44px 40px", minHeight: "100vh" }}>
+          <Routes>
+            <Route path="/" element={<TeacherDashboard />} />
+            <Route path="/add-teacher" element={<AddTeacher />} />
+            <Route path="/mark-attendance" element={<MarkAttendance />} />
+            <Route path="/view-attendance" element={<ViewAttendance />} />
+            <Route path="/timetable" element={<Timetable />} />
+            <Route path="/teacher-profile" element={<TeacherProfile />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
