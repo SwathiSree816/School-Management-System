@@ -1,12 +1,21 @@
 const mongoose = require("mongoose");
 
-const teacherSchema = mongoose.Schema(
+const teacherSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    subject: { type: String, required: true },
-    phone: { type: String, required: true },
-    experience: { type: Number, default: 0 },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+      required: true,
+      unique: true,
+    },
+    subject: {
+      type: String,
+      required: true,
+    },
+    experience: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

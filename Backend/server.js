@@ -23,7 +23,7 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
 //user routes
-app.use("api/user",userRoutes);
+app.use("api/users",userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
