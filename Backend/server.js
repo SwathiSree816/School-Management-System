@@ -6,6 +6,8 @@ const teacherRoutes = require("./routes/teacherRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const userRoutes = require("./routes/userRoutes")
 const parentRoutes = require("./routes/parentRoutes");
+const announcementRoutes = require("./routes/announcementRoutes");
+const noticeRoutes = require("./routes/noticeRoutes");
 
 // Load env vars
 dotenv.config();
@@ -28,6 +30,12 @@ app.use("api/users",userRoutes);
 
 //parent routes
 app.use("/api/parents", parentRoutes);
+
+//announcement routes
+app.use("/api/announcements", announcementRoutes);
+
+//notice routes
+app.use("/api/notices", noticeRoutes);
 
 const PORT = process.env.PORT || 5000;
 
