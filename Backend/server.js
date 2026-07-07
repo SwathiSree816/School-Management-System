@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const teacherRoutes = require("./routes/teacherRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const userRoutes = require("./routes/userRoutes")
+const parentRoutes = require("./routes/parentRoutes");
 
 // Load env vars
 dotenv.config();
@@ -18,12 +19,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+//teacher and attendance routes
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
 //user routes
 app.use("api/users",userRoutes);
+
+//parent routes
+app.use("/api/parents", parentRoutes);
 
 const PORT = process.env.PORT || 5000;
 
