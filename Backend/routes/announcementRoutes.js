@@ -9,10 +9,8 @@ const {
   getDashboardStats,
 } = require("../controllers/announcementController");
 
-const {
-  verifiedUser,
-  authorizeRoles,
-} = require("../middleware/authMiddleware");
+const verifiedUser = require("../middleware/authMiddleware");
+const authorizeRoles = require("../middleware/roleMiddleware");
 
 // Get all announcements & Add announcement
 router

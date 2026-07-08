@@ -8,6 +8,8 @@ const userRoutes = require("./routes/userRoutes")
 const parentRoutes = require("./routes/parentRoutes");
 const announcementRoutes = require("./routes/announcementRoutes");
 const noticeRoutes = require("./routes/noticeRoutes");
+const studentRoutes = require("./routes/studentRoutes");
+
 
 // Load env vars
 dotenv.config();
@@ -23,10 +25,11 @@ app.use(express.json());
 
 //teacher and attendance routes
 app.use("/api/teachers", teacherRoutes);
+app.use("/api/students", studentRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
 //user routes
-app.use("api/users",userRoutes);
+app.use("/api/users",userRoutes);
 
 //parent routes
 app.use("/api/parents", parentRoutes);
