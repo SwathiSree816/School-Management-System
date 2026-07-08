@@ -26,7 +26,7 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
 //user routes
-app.use("api/users",userRoutes);
+app.use("/api/users",userRoutes);
 
 //parent routes
 app.use("/api/parents", parentRoutes);

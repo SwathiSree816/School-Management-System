@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+const verifiedUser = require("../middleware/authMiddleware");
+const authorizeRoles = require("../middleware/roleMiddleware");
+
 const {
   getAnnouncements,
   addAnnouncement,
@@ -9,10 +12,6 @@ const {
   getDashboardStats,
 } = require("../controllers/announcementController");
 
-const {
-  verifiedUser,
-  authorizeRoles,
-} = require("../middleware/authMiddleware");
 
 // Get all announcements & Add announcement
 router

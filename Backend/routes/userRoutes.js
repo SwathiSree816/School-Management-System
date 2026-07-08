@@ -6,3 +6,5 @@ const authorizeRoles = require("../middleware/roleMiddleware")
 
 router.post("/register-user",verifiedUser,authorizeRoles("admin"),Register)
 router.post("/login",Login)
+
+module.exports = router;

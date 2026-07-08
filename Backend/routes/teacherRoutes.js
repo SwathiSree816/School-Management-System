@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const verifiedUser = require("../middleware/authMiddleware");
+const authorizeRoles = require("../middleware/roleMiddleware");
+
 const { getTeachers, addTeacher, getDashboardStats } = require("../controllers/teacherController");
 
 router.route("/").get(verifiedUser, authorizeRoles("admin"), getTeachers).post(verifiedUser, authorizeRoles("admin"), addTeacher);

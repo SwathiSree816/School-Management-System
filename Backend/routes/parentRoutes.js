@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const verifiedUser = require("../middleware/authMiddleware");
+const authorizeRoles = require("../middleware/roleMiddleware");
 
 const {
   getParents,
@@ -9,11 +11,6 @@ const {
   deleteParent,
   getDashboardStats,
 } = require("../controllers/parentController");
-
-const {
-  verifiedUser,
-  authorizeRoles,
-} = require("../middleware/authMiddleware");
 
 // Get all parents & Add a parent
 router

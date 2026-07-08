@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const verifiedUser = require("../middleware/authMiddleware");
+const authorizeRoles = require("../middleware/roleMiddleware");
 
 const {
   getNotices,
@@ -10,10 +12,6 @@ const {
   getDashboardStats,
 } = require("../controllers/noticeController");
 
-const {
-  verifiedUser,
-  authorizeRoles,
-} = require("../middleware/authMiddleware");
 
 // Get all notices & Add notice
 router
