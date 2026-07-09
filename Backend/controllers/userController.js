@@ -54,7 +54,7 @@ const Login=async(req,res)=>{
             return res.status(400).json({message:"Invalid password"});
         }
         const accesstoken = jwt.sign({userId:foundUser._id,username:foundUser.username,role:foundUser.role},process.env.JWT_SECRET_KEY,{expiresIn:"7d"})
-        res.status(200).json({message:"Login Successful",token,user: {
+        res.status(200).json({message:"Login Successful",token: accesstoken,user: {
         id: foundUser._id,
         username: foundUser.username,
         email: foundUser.email,
@@ -66,7 +66,27 @@ const Login=async(req,res)=>{
     }
 }
 
+const getProfile = async (req, res) => {
+  try {
+    const user = await Users.findById(req.user.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
     Register,
-    Login
+    Login,
+    getProfile
 };
