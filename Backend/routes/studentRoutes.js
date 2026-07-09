@@ -17,20 +17,20 @@ const authorizeRoles = require("../middleware/roleMiddleware");
 router.get(
   "/search",
   verifiedUser,
-  authorizeRoles("admin"),
+  authorizeRoles("admin","teacher"),
   searchStudents
 );
 
 // Get All Students & Add Student
 router
   .route("/")
-  .get(verifiedUser, authorizeRoles("admin"), getStudents)
+  .get(verifiedUser, authorizeRoles("admin","teacher"), getStudents)
   .post(verifiedUser, authorizeRoles("admin"), addStudent);
 
 // Get Student By ID
 router
   .route("/:id")
-  .get(verifiedUser, authorizeRoles("admin"), getStudentById)
+  .get(verifiedUser, authorizeRoles("admin","teacher"), getStudentById)
   .put(verifiedUser, authorizeRoles("admin"), updateStudent)
   .delete(verifiedUser, authorizeRoles("admin"), deleteStudent);
 

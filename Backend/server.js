@@ -25,8 +25,10 @@ app.use(express.json());
 
 //teacher and attendance routes
 app.use("/api/teachers", teacherRoutes);
-app.use("/api/students", studentRoutes);
 app.use("/api/attendance", attendanceRoutes);
+
+//student routes
+app.use("/api/students", studentRoutes);
 
 //user routes
 app.use("/api/users",userRoutes);
