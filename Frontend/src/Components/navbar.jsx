@@ -1,12 +1,34 @@
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
-export default function Navbar() {
+function Navbar() {
   return (
-    <nav className="glass-panel" style={{ margin: "20px", display: "flex", gap: "20px", justifyContent: "center" }}>
-      <Link to="/" className="clay-btn" style={{ textDecoration: "none" }}>Dashboard</Link>
-      <Link to="/add-teacher" className="clay-btn" style={{ textDecoration: "none" }}>Add Teacher</Link>
-      <Link to="/mark-attendance" className="clay-btn" style={{ textDecoration: "none" }}>Mark Attendance</Link>
-      <Link to="/view-attendance" className="clay-btn" style={{ textDecoration: "none" }}>View Attendance</Link>
+    <nav className="navbar">
+      <div className="logo">
+        School Management System
+      </div>
+
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+
+        <Link to="/admin-login">
+          Admin
+        </Link>
+
+        <Link to="/teacher-login">
+          Teacher
+        </Link>
+
+        <Link to="/student-login">
+          Student
+        </Link>
+
+        <Link to="/parent-login">
+          Parent
+        </Link>
+      </div>
     </nav>
   );
 }
+
+export default Navbar;

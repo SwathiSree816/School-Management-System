@@ -1,330 +1,196 @@
-// import { useState, useEffect } from "react";
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route,
-//   NavLink,
-// } from "react-router-dom";
-// import TeacherDashboard from "./Components/TeacherDashboard";
-// import AddTeacher from "./Components/AddTeacher";
-// import MarkAttendance from "./Components/MarkAttendance";
-// import ViewAttendance from "./Components/ViewAttendance";
-// import TeacherProfile from "./Components/TeacherProfile";
-// import Timetable from "./Components/Timetable";
-// import Login from "./Pages/Login";
-// import Register from "./Pages/Register";
-// import Home from "./Components/Home";
-// import DashboardLayout from "./Components/DashboardLayout"
+// // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// const getInitials = (name = "") =>
-//   name
-//     .trim()
-//     .split(/\s+/)
-//     .slice(0, 2)
-//     .map((w) => w[0]?.toUpperCase())
-//     .join("");
+// // // Landing Page
+// // import Landing from "./pages/Landing/Landing";
 
-// const loadSidebarProfile = () => {
-//   try {
-//     const s = localStorage.getItem("teacherProfile");
-//     return s
-//       ? JSON.parse(s)
-//       : { name: "Parinita Piplewar", subject: "Computer Science" };
-//   } catch {
-//     return { name: "Parinita Piplewar", subject: "Computer Science" };
-//   }
-// };
+// // // Login Pages
+// // import AdminLogin from "./pages/Login/AdminLogin";
+// // import TeacherLogin from "./pages/Login/TeacherLogin";
+// // import StudentLogin from "./pages/Login/StudentLogin";
+// // import ParentLogin from "./pages/Login/ParentLogin";
 
-// const NAV_ITEMS = [
-//   {
-//     to: "/teacher-dashboard",
-//     icon: "dashboard",
-//     label: "Dashboard",
-//     end: true,
-//   },
-//   { to: "/add-teacher", icon: "person_add", label: "Add Teacher" },
-//   { to: "/mark-attendance", icon: "how_to_reg", label: "Mark Attendance" },
-//   { to: "/view-attendance", icon: "menu_book", label: "View Attendance" },
-//   { to: "/timetable", icon: "calendar_month", label: "Timetable" },
-//   { to: "/login", icon: "login", label: "Login" },
-//   { to: "/register", icon: "person", label: "register" },
-// ];
+// // function App() {
+// //   return (
+// //     <Router>
+// //       <Routes>
+
+// //         {/* Landing Page */}
+// //         <Route path="/" element={<Landing />} />
+
+// //         {/* Login Pages */}
+// //         <Route path="/admin-login" element={<AdminLogin />} />
+// //         <Route path="/teacher-login" element={<TeacherLogin />} />
+// //         <Route path="/student-login" element={<StudentLogin />} />
+// //         <Route path="/parent-login" element={<ParentLogin />} />
+
+// //       </Routes>
+// //     </Router>
+// //   );
+// // }
+
+// // export default App;
+
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// // Landing Page
+// import Landing from "./pages/Landing/Landing";
+
+// // Login Pages
+// import AdminLogin from "./pages/Login/AdminLogin";
+// import TeacherLogin from "./pages/Login/TeacherLogin";
+// import StudentLogin from "./pages/Login/StudentLogin";
+// import ParentLogin from "./pages/Login/ParentLogin";
+
+// // Admin Pages
+// import AdminDashboard from "./pages/Admin/Dashboard";
+// import Students from "./pages/Admin/Students";
+// import Teachers from "./pages/Admin/Teachers";
+// import Parents from "./pages/Admin/Parents";
+// import AdminAttendance from "./pages/Admin/Attendance";
+// import Notices from "./pages/Admin/Notices";
+// import Announcements from "./pages/Admin/Announcements";
+// import AdminProfile from "./pages/Admin/Profile";
+
+// // Teacher Pages
+// import TeacherDashboard from "./pages/Teacher/Dashboard";
+// import TeacherAttendance from "./pages/Teacher/Attendance";
+// import TeacherAnnouncements from "./pages/Teacher/Announcements";
+// import TeacherProfile from "./pages/Teacher/Profile";
+
+// // Student Pages
+// import StudentDashboard from "./pages/Student/Dashboard";
+// import StudentAttendance from "./pages/Student/Attendance";
+// import StudentNotices from "./pages/Student/Notices";
+// import StudentAnnouncements from "./pages/Student/Announcements";
+// import StudentProfile from "./pages/Student/Profile";
+
+// // Parent Pages
+// import ParentDashboard from "./pages/Parent/Dashboard";
+// import StudentProfilePage from "./pages/Parent/StudentProfile";
+// import ParentNotices from "./pages/Parent/Notices";
+// import ParentAnnouncements from "./pages/Parent/Announcements";
+// import ParentProfile from "./pages/Parent/Profile";
 
 // function App() {
-//   const [sidebarProfile, setSidebarProfile] = useState(loadSidebarProfile);
-
-//   useEffect(() => {
-//     const handler = (e) => setSidebarProfile(e.detail);
-//     window.addEventListener("profileUpdated", handler);
-//     return () => window.removeEventListener("profileUpdated", handler);
-//   }, []);
 //   return (
 //     <Router>
-//       <div style={{ display: "flex", minHeight: "100vh" }}>
-//         {/* Sidebar */}
-//         <nav
-//           style={{
-//             width: "256px",
-//             minWidth: "256px",
-//             position: "fixed",
-//             left: 0,
-//             top: 0,
-//             bottom: 0,
-//             background: "rgba(42, 20, 30, 0.78)",
-//             backdropFilter: "blur(22px)",
-//             WebkitBackdropFilter: "blur(22px)",
-//             borderRight: "1px solid rgba(255,255,255,0.08)",
-//             display: "flex",
-//             flexDirection: "column",
-//             padding: "32px 18px",
-//             zIndex: 50,
-//           }}
-//         >
-//           {/* Brand */}
-//           <div
-//             style={{
-//               display: "flex",
-//               alignItems: "center",
-//               gap: "12px",
-//               marginBottom: "44px",
-//             }}
-//           >
-//             <div
-//               style={{
-//                 width: "44px",
-//                 height: "44px",
-//                 borderRadius: "14px",
-//                 background: "linear-gradient(135deg, #7c3aed, #ec4899)",
-//                 display: "flex",
-//                 alignItems: "center",
-//                 justifyContent: "center",
-//                 flexShrink: 0,
-//                 boxShadow: "0 4px 14px rgba(124,58,237,0.4)",
-//               }}
-//             >
-//               <span
-//                 className="material-symbols-outlined"
-//                 style={{
-//                   color: "#fff",
-//                   fontSize: "22px",
-//                   fontVariationSettings: "'FILL' 1",
-//                 }}
-//               >
-//                 school
-//               </span>
-//             </div>
-//             <div>
-//               <div
-//                 style={{
-//                   color: "#fff",
-//                   fontFamily: "Outfit, sans-serif",
-//                   fontWeight: 700,
-//                   fontSize: "15px",
-//                   lineHeight: 1.2,
-//                 }}
-//               >
-//                 Teacher Portal
-//               </div>
-//               <div
-//                 style={{
-//                   color: "rgba(255,200,210,0.55)",
-//                   fontSize: "11px",
-//                   fontFamily: "Inter, sans-serif",
-//                   marginTop: "2px",
-//                 }}
-//               >
-//                 Management System
-//               </div>
-//             </div>
-//           </div>
+//       <Routes>
+//         {/* Landing */}
+//         <Route path="/" element={<Landing />} />
 
-//           {/* Nav section label */}
-//           <p
-//             style={{
-//               fontSize: "10px",
-//               fontWeight: 700,
-//               letterSpacing: "0.1em",
-//               color: "rgba(255,180,195,0.4)",
-//               fontFamily: "Inter, sans-serif",
-//               textTransform: "uppercase",
-//               marginBottom: "10px",
-//               paddingLeft: "6px",
-//             }}
-//           >
-//             Navigation
-//           </p>
+//         {/* Login */}
+//         <Route path="/admin-login" element={<AdminLogin />} />
+//         <Route path="/teacher-login" element={<TeacherLogin />} />
+//         <Route path="/student-login" element={<StudentLogin />} />
+//         <Route path="/parent-login" element={<ParentLogin />} />
 
-//           {/* Nav Items */}
-//           <ul
-//             style={{
-//               listStyle: "none",
-//               padding: 0,
-//               margin: 0,
-//               flex: 1,
-//               display: "flex",
-//               flexDirection: "column",
-//               gap: "4px",
-//             }}
-//           >
-//             {NAV_ITEMS.map(({ to, icon, label, end }) => (
-//               <li key={to}>
-//                 <NavLink
-//                   to={to}
-//                   end={end}
-//                   style={({ isActive }) => ({
-//                     display: "flex",
-//                     alignItems: "center",
-//                     gap: "13px",
-//                     padding: "11px 14px",
-//                     borderRadius: "13px",
-//                     textDecoration: "none",
-//                     fontFamily: "Inter, sans-serif",
-//                     fontSize: "13px",
-//                     fontWeight: 600,
-//                     letterSpacing: "0.02em",
-//                     transition: "all 0.2s ease",
-//                     background: isActive
-//                       ? "linear-gradient(135deg, rgba(124,58,237,0.28), rgba(236,72,153,0.15))"
-//                       : "transparent",
-//                     color: isActive ? "#f3d8e8" : "rgba(255,200,215,0.5)",
-//                     borderLeft: isActive
-//                       ? "3px solid #ec4899"
-//                       : "3px solid transparent",
-//                   })}
-//                 >
-//                   <span
-//                     className="material-symbols-outlined"
-//                     style={{ fontSize: "19px", flexShrink: 0 }}
-//                   >
-//                     {icon}
-//                   </span>
-//                   {label}
-//                 </NavLink>
-//               </li>
-//             ))}
-//           </ul>
+//         {/* Admin */}
+//         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+//         <Route path="/admin/students" element={<Students />} />
+//         <Route path="/admin/teachers" element={<Teachers />} />
+//         <Route path="/admin/parents" element={<Parents />} />
+//         <Route path="/admin/attendance" element={<AdminAttendance />} />
+//         <Route path="/admin/notices" element={<Notices />} />
+//         <Route path="/admin/announcements" element={<Announcements />} />
+//         <Route path="/admin/profile" element={<AdminProfile />} />
 
-//           {/* Divider */}
-//           <div
-//             style={{
-//               borderTop: "1px solid rgba(255,200,210,0.1)",
-//               marginBottom: "12px",
-//             }}
-//           />
+//         {/* Teacher */}
+//         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+//         <Route path="/teacher/attendance" element={<TeacherAttendance />} />
+//         <Route path="/teacher/announcements" element={<TeacherAnnouncements />} />
+//         <Route path="/teacher/profile" element={<TeacherProfile />} />
 
-//           {/* Profile Footer */}
-//           <NavLink
-//             to="/teacher-profile"
-//             style={({ isActive }) => ({
-//               display: "flex",
-//               alignItems: "center",
-//               gap: "12px",
-//               padding: "11px 14px",
-//               borderRadius: "13px",
-//               textDecoration: "none",
-//               transition: "all 0.2s ease",
-//               background: isActive
-//                 ? "rgba(236,72,153,0.15)"
-//                 : "rgba(255,255,255,0.04)",
-//               border: isActive
-//                 ? "1px solid rgba(236,72,153,0.25)"
-//                 : "1px solid transparent",
-//             })}
-//           >
-//             <div
-//               style={{
-//                 width: "34px",
-//                 height: "34px",
-//                 borderRadius: "50%",
-//                 background: "linear-gradient(135deg, #7c3aed, #ec4899)",
-//                 display: "flex",
-//                 alignItems: "center",
-//                 justifyContent: "center",
-//                 fontSize: "13px",
-//                 fontWeight: 700,
-//                 color: "#fff",
-//                 fontFamily: "Outfit, sans-serif",
-//                 flexShrink: 0,
-//               }}
-//             >
-//               {getInitials(sidebarProfile.name)}
-//             </div>
-//             <div>
-//               <div
-//                 style={{
-//                   color: "rgba(255,230,235,0.9)",
-//                   fontFamily: "Inter, sans-serif",
-//                   fontSize: "13px",
-//                   fontWeight: 600,
-//                 }}
-//               >
-//                 {sidebarProfile.name}
-//               </div>
-//               <div
-//                 style={{
-//                   color: "rgba(255,180,195,0.45)",
-//                   fontFamily: "Inter, sans-serif",
-//                   fontSize: "11px",
-//                 }}
-//               >
-//                 {sidebarProfile.subject}
-//               </div>
-//             </div>
-//             <span
-//               className="material-symbols-outlined"
-//               style={{
-//                 fontSize: "16px",
-//                 color: "rgba(255,180,195,0.35)",
-//                 marginLeft: "auto",
-//               }}
-//             >
-//               chevron_right
-//             </span>
-//           </NavLink>
-//         </nav>
+//         {/* Student */}
+//         <Route path="/student/dashboard" element={<StudentDashboard />} />
+//         <Route path="/student/attendance" element={<StudentAttendance />} />
+//         <Route path="/student/notices" element={<StudentNotices />} />
+//         <Route path="/student/announcements" element={<StudentAnnouncements />} />
+//         <Route path="/student/profile" element={<StudentProfile />} />
 
-//         {/* Main Content */}
-//         <main
-//           style={{
-//             flex: 1,
-//             marginLeft: "256px",
-//             padding: "44px 40px",
-//             minHeight: "100vh",
-//           }}
-//         >
-//           <Routes>
-//             {/* Public Pages (No Sidebar) */}
-//             <Route path="/" element={<Home />} />
-//             <Route path="/login" element={<Login />} />
-//             <Route path="/register" element={<Register />} />
-
-//             {/* Protected Pages (With Sidebar) */}
-//             <Route path="/*" element={<DashboardLayout />} />
-//           </Routes>
-//         </main>
-//       </div>
+//         {/* Parent */}
+//         <Route path="/parent/dashboard" element={<ParentDashboard />} />
+//         <Route path="/parent/student-profile" element={<StudentProfilePage />} />
+//         <Route path="/parent/notices" element={<ParentNotices />} />
+//         <Route path="/parent/announcements" element={<ParentAnnouncements />} />
+//         <Route path="/parent/profile" element={<ParentProfile />} />
+//       </Routes>
 //     </Router>
 //   );
 // }
 
 // export default App;
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Components/Home";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
-import DashboardLayout from "./Components/DashboardLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Landing Page
+import Landing from "./pages/Landing/Landing";
+
+import AdminLogin from "./pages/Login/AdminLogin";
+import TeacherLogin from "./pages/Login/TeacherLogin";
+import StudentLogin from "./pages/Login/StudentLogin";
+import ParentLogin from "./pages/Login/ParentLogin";
+import Dashboard from "./pages/Admin/Dashboard";
+import Students from "./pages/Admin/Students";
+import Teachers from "./pages/Admin/Teachers";
+import Parents from "./pages/Admin/Parents";
+import Attendance from "./pages/Admin/Attendance";
+import Notices from "./pages/Admin/Notices";
+import Announcements from "./pages/Admin/Announcements";
+import Profile from "./pages/Admin/Profile";
+import TeacherDashboard from "./pages/Teacher/Dashboard";
+import TeacherAttendance from "./pages/Teacher/Attendance";
+import TeacherAnnouncements from "./pages/Teacher/Announcements";
+import TeacherProfile from "./pages/Teacher/Profile";
+import StudentDashboard from "./pages/Student/Dashboard";
+import StudentAttendance from "./pages/Student/Attendance";
+import StudentNotices from "./pages/Student/Notices";
+import StudentAnnouncements from "./pages/Student/Announcements";
+import StudentProfile from "./pages/Student/Profile";
+import ParentDashboard from "./pages/Parent/Dashboard";
+import StudentProfilePage from "./pages/Parent/StudentProfile";
+import ParentNotices from "./pages/Parent/Notices";
+import ParentAnnouncements from "./pages/Parent/Announcements";
+import ParentProfile from "./pages/Parent/Profile";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Public Pages */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* Landing Page */}
+        <Route path="/" element={<Landing />} />
 
-        {/* Dashboard Pages */}
-        <Route path="/*" element={<DashboardLayout />} />
+        {/* Login Pages */}
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/teacher-login" element={<TeacherLogin />} />
+        <Route path="/student-login" element={<StudentLogin />} />
+        <Route path="/parent-login" element={<ParentLogin />} />
+
+        <Route path="/admin/dashboard" element={<ProtectedRoute allowedRole="admin"><AdminDashboard /></ProtectedRoute>}/>
+        <Route path="/admin/students" element={<Students />} />
+        <Route path="/admin/teachers" element={<Teachers />} />
+        <Route path="/admin/parents" element={<Parents />} />
+        <Route path="/admin/attendance" element={<Attendance />} />
+        <Route path="/admin/notices" element={<Notices />} />
+        <Route path="/admin/announcements" element={<Announcements />} />
+        <Route path="/admin/profile" element={<Profile />} />
+
+        <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRole="teacher"><TeacherDashboard /></ProtectedRoute>}/>
+        <Route path="/teacher/attendance" element={<TeacherAttendance />} />
+        <Route path="/teacher/announcements" element={<TeacherAnnouncements />} />
+        <Route path="/teacher/profile" element={<TeacherProfile />} />
+
+        <Route path="/student/dashboard" element={<ProtectedRoute allowedRole="student"><StudentDashboard /></ProtectedRoute>}/>
+        <Route path="/student/attendance" element={<StudentAttendance />} />
+        <Route path="/student/notices" element={<StudentNotices />} />
+        <Route path="/student/announcements" element={<StudentAnnouncements />} />
+        <Route path="/student/profile" element={<StudentProfile />} />
+
+        <Route path="/parent/dashboard" element={<ProtectedRoute allowedRole="parent"><ParentDashboard /></ProtectedRoute>}/>
+        <Route path="/parent/student-profile" element={<StudentProfilePage />} />
+        <Route path="/parent/notices" element={<ParentNotices />} />
+        <Route path="/parent/announcements" element={<ParentAnnouncements />} />
+        <Route path="/parent/profile" element={<ParentProfile />} />
       </Routes>
     </Router>
   );

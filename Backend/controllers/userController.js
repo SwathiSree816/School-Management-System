@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const env = require("dotenv")
+const env = require("dotenv");
 
 //Register
 const Register = async (req, res) => {
@@ -37,34 +37,47 @@ const Register = async (req, res) => {
   }
 };
 
-
 //Login
-const Login=async(req,res)=>{
-    try {
-        const {username,password}=req.body;
-        if (!username || !password) {
-        return res.status(400).json({message: "Username and password are required"});
-        }
-        const foundUser = await Users.findOne({username:username})
-        if (!foundUser) {
-            return res.status(404).json({message: "This user is not registered"});
-        }
-        const comparedPassword = await bcrypt.compare(password,foundUser.password);
-        if(!comparedPassword){
-            return res.status(400).json({message:"Invalid password"});
-        }
-        const accesstoken = jwt.sign({userId:foundUser._id,username:foundUser.username,role:foundUser.role},process.env.JWT_SECRET_KEY,{expiresIn:"7d"})
-        res.status(200).json({message:"Login Successful",token: accesstoken,user: {
+const Login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res
+        .status(400)
+        .json({ message: "Username and password are required" });
+    }
+    const foundUser = await Users.findOne({ username: username });
+    if (!foundUser) {
+      return res.status(404).json({ message: "This user is not registered" });
+    }
+    const comparedPassword = await bcrypt.compare(password, foundUser.password);
+    if (!comparedPassword) {
+      return res.status(400).json({ message: "Invalid password" });
+    }
+    const accesstoken = jwt.sign(
+      {
+        userId: foundUser._id,
+        username: foundUser.username,
+        role: foundUser.role,
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "7d" },
+    );
+    res.status(200).json({
+      message: "Login Successful",
+      token: accesstoken,
+      user: {
         id: foundUser._id,
         username: foundUser.username,
         email: foundUser.email,
-        role: foundUser.role
-    }})
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({message:"Login is not successful"})
-    }
-}
+        role: foundUser.role,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Login is not successful" });
+  }
+};
 
 const getProfile = async (req, res) => {
   try {
@@ -86,7 +99,7 @@ const getProfile = async (req, res) => {
 };
 
 module.exports = {
-    Register,
-    Login,
-    getProfile
+  Register,
+  Login,
+  getProfile,
 };

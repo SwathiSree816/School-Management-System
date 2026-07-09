@@ -1,0 +1,14 @@
+.dashboard{
+display:flex;
+}
+
+.main-content{
+margin-left:250px;
+width:100%;
+min-height:100vh;
+background:#f4f6f9;
+}
+
+.page-content{
+padding:30px;
+}

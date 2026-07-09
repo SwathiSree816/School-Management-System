@@ -1,0 +1,37 @@
+.parent-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.parent-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.parent-card h3 {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.parent-card h1 {
+  color: #0d6efd;
+}
+
+.info-box {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 25px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+}
+
+@media(max-width:900px){
+  .parent-cards{
+    grid-template-columns:1fr;
+  }
+}
