@@ -144,3 +144,6 @@ vite.config.ts.timestamp-*
 
 #ignore env file
 Backend/.env
+
+# Demo and Walkthrough Recordings
+*.webp

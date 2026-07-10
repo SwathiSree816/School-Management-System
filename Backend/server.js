@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path");
 const connectDB = require("./config/db");
 const teacherRoutes = require("./routes/teacherRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
@@ -47,6 +48,20 @@ app.use("/api/announcements", announcementRoutes);
 //notice routes
 app.use("/api/notices", noticeRoutes);
 
-const PORT = process.env.PORT || 5000;
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, "../Frontend/dist")));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Fallback all other routes to frontend's index.html
+app.get("/*splat", (req, res) => {
+  res.sendFile(path.join(__dirname, "../Frontend/dist", "index.html"));
+});
+
+const { onRequest } = require("firebase-functions/v2/https");
+
+// Export for Firebase Cloud Functions
+exports.api = onRequest({ cors: true }, app);
+
+if (!process.env.FIREBASE_CONFIG) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
