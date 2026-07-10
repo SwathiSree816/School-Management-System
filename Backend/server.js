@@ -23,6 +23,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Root route
+app.get("/", (req, res) => {
+  res.send("School Management System API is running...");
+});
+
 //teacher and attendance routes
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/attendance", attendanceRoutes);
