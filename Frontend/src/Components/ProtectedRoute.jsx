@@ -8,7 +8,13 @@ function ProtectedRoute({ children, allowedRoles }) {
     return <Navigate to="/" replace />;
   }
 
-  if (!allowedRoles.includes(user.role)) {
+  const roles = Array.isArray(allowedRoles)
+    ? allowedRoles
+    : allowedRoles
+    ? [allowedRoles]
+    : [];
+
+  if (!roles.includes(user.role)) {
     return <Navigate to="/" replace />;
   }
 

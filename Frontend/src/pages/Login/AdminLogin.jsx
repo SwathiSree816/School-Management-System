@@ -1,17 +1,6 @@
-import React from 'react'
-
-const AdminLogin = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default AdminLogin
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import API from "../../services/api";
+import API from "../../Services/api";
 import "./Login.css";
 
 function AdminLogin() {

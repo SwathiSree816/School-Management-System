@@ -121,7 +121,7 @@
 // export default App;
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 // Landing Page
 import Landing from "./pages/Landing/Landing";
@@ -130,7 +130,7 @@ import AdminLogin from "./pages/Login/AdminLogin";
 import TeacherLogin from "./pages/Login/TeacherLogin";
 import StudentLogin from "./pages/Login/StudentLogin";
 import ParentLogin from "./pages/Login/ParentLogin";
-import Dashboard from "./pages/Admin/Dashboard";
+import AdminDashboard from "./pages/Admin/Dashboard";
 import Students from "./pages/Admin/Students";
 import Teachers from "./pages/Admin/Teachers";
 import Parents from "./pages/Admin/Parents";
@@ -166,7 +166,7 @@ function App() {
         <Route path="/student-login" element={<StudentLogin />} />
         <Route path="/parent-login" element={<ParentLogin />} />
 
-        <Route path="/admin/dashboard" element={<ProtectedRoute allowedRole="admin"><AdminDashboard /></ProtectedRoute>}/>
+        <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>}/>
         <Route path="/admin/students" element={<Students />} />
         <Route path="/admin/teachers" element={<Teachers />} />
         <Route path="/admin/parents" element={<Parents />} />
@@ -175,18 +175,18 @@ function App() {
         <Route path="/admin/announcements" element={<Announcements />} />
         <Route path="/admin/profile" element={<Profile />} />
 
-        <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRole="teacher"><TeacherDashboard /></ProtectedRoute>}/>
+        <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRoles={["teacher"]}><TeacherDashboard /></ProtectedRoute>}/>
         <Route path="/teacher/attendance" element={<TeacherAttendance />} />
         <Route path="/teacher/announcements" element={<TeacherAnnouncements />} />
         <Route path="/teacher/profile" element={<TeacherProfile />} />
 
-        <Route path="/student/dashboard" element={<ProtectedRoute allowedRole="student"><StudentDashboard /></ProtectedRoute>}/>
+        <Route path="/student/dashboard" element={<ProtectedRoute allowedRoles={["student"]}><StudentDashboard /></ProtectedRoute>}/>
         <Route path="/student/attendance" element={<StudentAttendance />} />
         <Route path="/student/notices" element={<StudentNotices />} />
         <Route path="/student/announcements" element={<StudentAnnouncements />} />
         <Route path="/student/profile" element={<StudentProfile />} />
 
-        <Route path="/parent/dashboard" element={<ProtectedRoute allowedRole="parent"><ParentDashboard /></ProtectedRoute>}/>
+        <Route path="/parent/dashboard" element={<ProtectedRoute allowedRoles={["parent"]}><ParentDashboard /></ProtectedRoute>}/>
         <Route path="/parent/student-profile" element={<StudentProfilePage />} />
         <Route path="/parent/notices" element={<ParentNotices />} />
         <Route path="/parent/announcements" element={<ParentAnnouncements />} />
