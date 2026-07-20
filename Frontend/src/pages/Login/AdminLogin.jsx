@@ -43,12 +43,16 @@ function AdminLogin() {
   };
 
   return (
-    <form onSubmit={handleLogin}>
+  <div className="login-container">
+    <form className="login-card" onSubmit={handleLogin}>
+      <h2>Admin Login</h2>
+
       <input
         type="text"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        required
       />
 
       <input
@@ -56,11 +60,15 @@ function AdminLogin() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
       />
 
-      <button disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
+      <button className="login-btn" disabled={loading}>
+        {loading ? "Logging in..." : "Login"}
+      </button>
     </form>
-  );
+  </div>
+);
 }
 
 export default AdminLogin;

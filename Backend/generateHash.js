@@ -1,11 +1,17 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
-async function generateHash() {
-    const password = "Admin@123"; // Change this to the password you want
+async function generate() {
+  const passwords = [
+    "Admin@123",
+    "Teacher@123",
+    "Student@123",
+    "Parent@123"
+  ];
+
+  for (const password of passwords) {
     const hash = await bcrypt.hash(password, 10);
-
-    console.log("Password:", password);
-    console.log("Hash:", hash);
+    console.log(`${password} -> ${hash}`);
+  }
 }
 
-generateHash();
+generate();

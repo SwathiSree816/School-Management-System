@@ -49,12 +49,12 @@ app.use("/api/announcements", announcementRoutes);
 app.use("/api/notices", noticeRoutes);
 
 // Serve frontend static files
-app.use(express.static(path.join(__dirname, "../Frontend/dist")));
+//app.use(express.static(path.join(__dirname, "../Frontend/dist")));
 
 // Fallback all other routes to frontend's index.html
-app.get("/*splat", (req, res) => {
-  res.sendFile(path.join(__dirname, "../Frontend/dist", "index.html"));
-});
+//pp.get("/*splat", (req, res) => {
+ // res.sendFile(path.join(__dirname, "../Frontend/dist", "index.html"));
+//});
 
 const { onRequest } = require("firebase-functions/v2/https");
 
