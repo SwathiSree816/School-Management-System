@@ -51,52 +51,8 @@ The application offers secure authentication, role-based access, attendance mana
 
 ## Project Structure
 
-```
-School-Management-System/
-│
-├── Frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-│
-├── Backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── config/
-│   └── server.js
-│
-└── README.md
-```
 
----
 
-## Installation
-
-### Clone the repository
-
-```bash
-git clone <repository-url>
-```
-
-### Backend
-
-```bash
-cd Backend
-npm install
-npm start
-```
-
-### Frontend
-
-```bash
-cd Frontend
-npm install
-npm run dev
-```
-
----
 
 ## User Roles
 
